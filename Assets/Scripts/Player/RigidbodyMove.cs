@@ -13,8 +13,8 @@ public class RigidbodyMove : MonoBehaviour
     public MoveStatus CurrentMoveStatus;
     [Tooltip("Физическое тело игрока")]
     [SerializeField] private Rigidbody _rigidbody;
-    [Tooltip("Скорость перемещения")]
-    [SerializeField] private float _speed = 5f;
+    //[Tooltip("Скорость перемещения")]
+    //[SerializeField] private float _speed = 5f;
     [Tooltip("Аниматор")]
     [SerializeField] private Animator _animator;
 

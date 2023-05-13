@@ -41,7 +41,7 @@ public class EnemyManager : MonoBehaviour
         Vector2 randomPoint = Random.insideUnitCircle.normalized; // Случайная точка на единичной окружности
         Vector3 position = new Vector3(randomPoint.x, 0f, randomPoint.y) * _creationRadius + _playerTransform.position; // Положение врага при создании
         EnemyAnimal newEnemy = Instantiate(enemy,position, Quaternion.identity); // Новый враг в расчитанном положении
-        newEnemy.Init(_playerTransform); // Передаём врагу сведения о положении игрока
+        newEnemy.Init(_playerTransform, this); // Передаём врагу сведения о положении игрока
         newEnemy.EnemyKilled += RemoveEnemy;
         _enemyList.Add(newEnemy); // Добавляем врага в список
     }

@@ -28,4 +28,9 @@ public class Pointer : MonoBehaviour
         Vector3 toAim = _aim.position - transform.position;
         transform.rotation = Quaternion.LookRotation(toAim);
     }
+
+    public void GetTransform(Transform transform)
+    {
+        _aim = transform;
+    }
 }

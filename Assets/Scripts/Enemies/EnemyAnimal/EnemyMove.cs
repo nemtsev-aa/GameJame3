@@ -10,15 +10,21 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] private float _rotationLerpRate = 3f;
 
     private Transform _targetTransform; // Трансформ цели
-
-    public void Setup(Transform playerTransform)
+    private EnemyManager _enemyManager; // Менеджер эмоций
+    public void Setup(Transform playerTransform, EnemyManager enemyManager)
     {
         _targetTransform = playerTransform;
+        _enemyManager = enemyManager;
     }
 
     private void Update()
     {
         Vector3 toTarget = _targetTransform.position - transform.position; // Вектор от текущего положения к цели
+        if (toTarget.magnitude > 30f)
+        {
+            EnemyAnimal enemyAnimal = gameObject.GetComponent<EnemyAnimal>();
+            _enemyManager.RemoveEnemy(enemyAnimal);
+        }
         Quaternion targetRotation = Quaternion.LookRotation(toTarget, Vector3.up); // Целевой угол поворота
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * _rotationLerpRate); // Поворот врага к цели
     }

@@ -152,9 +152,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2875123022083837146}
   - component: {fileID: 4129021520676633636}
-  - component: {fileID: 6538206532071773950}
   - component: {fileID: 6538206532071773936}
   - component: {fileID: 6538206532071773937}
+  - component: {fileID: 6538206532071773950}
   - component: {fileID: 124953928887818516}
   m_Layer: 6
   m_Name: Positive_2
@@ -196,21 +196,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &6538206532071773950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2875123022083837147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28f302ecf09e31e40aa9cacf70c7991e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 4129021520676633636}
-  _speed: 3
-  _rotationLerpRate: 3
 --- !u!114 &6538206532071773936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EnemyHealth>k__BackingField: {fileID: 6538206532071773937}
-  _experienceLoot: {fileID: 3708996054882680240, guid: 8f624aa9e772fe24db4bd08d9d3b5794,
+  _experienceLoot: {fileID: 3708996054882680240, guid: c0dc4bb4558113641a2568462ec04fd5,
     type: 3}
   _attackPeriod: 1
   _dps: 1
@@ -244,6 +229,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 1
+--- !u!114 &6538206532071773950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2875123022083837147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28f302ecf09e31e40aa9cacf70c7991e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 4129021520676633636}
+  _speed: 1
+  _rotationLerpRate: 3
 --- !u!82 &124953928887818516
 AudioSource:
   m_ObjectHideFlags: 0

@@ -172,7 +172,7 @@ Transform:
   m_GameObject: {fileID: 6795656459411110861}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6795656458564153022}
@@ -211,8 +211,6 @@ MonoBehaviour:
   <EnemyHealth>k__BackingField: {fileID: 2308179241615794215}
   _experienceLoot: {fileID: 3708996054882680240, guid: 33314e8f3c8c2144b8d6f25a62495c43,
     type: 3}
-  _attackPeriod: 1
-  _dps: 1
   DieParticleEffect: {fileID: 19800004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
   _meDie: {fileID: 8300000, guid: efd33a5efb14c7240895847fd764220b, type: 3}
 --- !u!114 &2308179241615794215

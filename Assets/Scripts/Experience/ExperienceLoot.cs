@@ -8,6 +8,8 @@ public enum EmotionType
 }
 public class ExperienceLoot : Loot
 {
+    [Space(10)]
+    [Header("ExperienceLoot")]
     [Tooltip("Количество опыта")]
     public float ExperienceValue;
     [Tooltip("Тип эмоции")]

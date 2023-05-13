@@ -10,6 +10,7 @@ public class Loot : MonoBehaviour
     [SerializeField] private float _timeToCollector;
 
     private Transform _textPosition;
+    
     public void Collect(Collector collector, Transform textPosition)
     {
         _textPosition = textPosition;

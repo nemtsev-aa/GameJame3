@@ -33,16 +33,9 @@ public class Collector : MonoBehaviour
             if (colliders[i].GetComponent<ExperienceLoot>() is ExperienceLoot loot)
             {
                 if (loot.EmotionType == EmotionType.Positive)
-                {
-                    _experienceManager.AddPositiveEmotion(loot.ExperienceValue);
                     loot.Collect(this, PositiveText); // Если объект взаимодействия - лут, активируем процедуру сборки
-                }  
                 else
-                {
-                    _experienceManager.AddNegativeEmotion(loot.ExperienceValue);
                     loot.Collect(this, NefativeText); // Если объект взаимодействия - лут, активируем процедуру сборки
-                }
-                
             }   
         }
     }
@@ -55,30 +48,20 @@ public class Collector : MonoBehaviour
         }
     }
 
-
     public void TakeEmotion(EmotionType emotionType, float value)
     {
+        Debug.Log("TakeEmotion: " + value);
         switch (emotionType)
         {
             case EmotionType.Positive:
-                TakePositiveEmotion(value);
+                _experienceManager.AddPositiveEmotion(value);
                 break;
             case EmotionType.Negative:
-                TakeNegativeEmotion(value);
+                _experienceManager.AddNegativeEmotion(value);
                 break;
             default:
                 break;
         }
-    }
-
-    public void TakePositiveEmotion(float value)
-    {
-        _experienceManager.AddPositiveEmotion(value);
-    }
-
-    public void TakeNegativeEmotion(float value)
-    {
-        _experienceManager.AddNegativeEmotion(value);
     }
 
 #if UNITY_EDITOR

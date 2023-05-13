@@ -7,11 +7,6 @@ public class Enemy : MonoBehaviour
     [Tooltip("Префаб - опыт")]
     [field: SerializeField] public GameObject _experienceLoot;
     
-    [Tooltip("Период атаки")]
-    [SerializeField] private float _attackPeriod = 1f;
-    [Tooltip("Урон в секунду")]
-    [SerializeField] private float _dps;
-
     private float _attackTimer;
     private PlayerHealth _playerHealth;
     private EnemyMove _enemyMove;
@@ -21,23 +16,23 @@ public class Enemy : MonoBehaviour
         _enemyMove = gameObject.GetComponent<EnemyMove>();
     }
     
-    public void Init(Transform playerTransform)
+    public void Init(Transform playerTransform, EnemyManager enemyManager)
     {
-        _enemyMove.Setup(playerTransform);
+        _enemyMove.Setup(playerTransform, enemyManager);
     }
 
-    private void Update()
-    {
-        if (_playerHealth)
-        {
-            _attackTimer += Time.deltaTime;
-            if (_attackTimer > _attackPeriod)
-            {
-                _playerHealth.TakeDamage(_dps * _attackPeriod);
-                _attackTimer = 0;
-            }    
-        }
-    }
+    //private void Update()
+    //{
+    //    if (_playerHealth)
+    //    {
+    //        _attackTimer += Time.deltaTime;
+    //        if (_attackTimer > _attackPeriod)
+    //        {
+    //            _playerHealth.TakeDamage(_dps * _attackPeriod);
+    //            _attackTimer = 0;
+    //        }    
+    //    }
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
