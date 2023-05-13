@@ -9,8 +9,7 @@ public class EnemyMove : MonoBehaviour
     [Tooltip("Cкорость поворота")]
     [SerializeField] private float _rotationLerpRate = 3f;
 
-    // Трансформ цели
-    private Transform _targetTransform;
+    private Transform _targetTransform; // Трансформ цели
 
     public void Setup(Transform playerTransform)
     {
@@ -19,20 +18,13 @@ public class EnemyMove : MonoBehaviour
 
     private void Update()
     {
-        // Вектор от текущего положения к цели
-        Vector3 toTarget = _targetTransform.position - transform.position;
-        if (toTarget.magnitude > 20f) // Если враг сильно отстал от игрока, перемещаем его на противоположную сторону
-            transform.position += toTarget * 1.95f;
-
-        // Целевой угол поворота
-        Quaternion targetRotation = Quaternion.LookRotation(toTarget, Vector3.up);
-        // Поворот врага к цели
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * _rotationLerpRate);
+        Vector3 toTarget = _targetTransform.position - transform.position; // Вектор от текущего положения к цели
+        Quaternion targetRotation = Quaternion.LookRotation(toTarget, Vector3.up); // Целевой угол поворота
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * _rotationLerpRate); // Поворот врага к цели
     }
 
     private void FixedUpdate()
     {
-        // Сила для преследования
-        _rigidbody.velocity = transform.forward * _speed;
+        _rigidbody.velocity = transform.forward * _speed; // Сила для преследования
     }
 }

@@ -20,14 +20,13 @@ public class Loot : MonoBehaviour
     private IEnumerator MoveToCollector(Collector collector)
     {
         Vector3 a = transform.position; // Текущее положение лута
-        Vector3 b = a + Vector3.up * 2f; // Смещение №1 для создания кривой Безье
+        Vector3 b = a + Vector3.up * 4f; // Смещение №1 для создания кривой Безье
+        Vector3 d = _textPosition.position; // Текущее положение сборщика
+        Vector3 c = d + Vector3.up * 2f; // Смещение №2 для создания кривой Безье
 
 
         for (float t = 0; t < 1f; t+=Time.deltaTime / _timeToCollector)
         {
-            Vector3 d = _textPosition.position; // Текущее положение сборщика
-            Vector3 c = d + Vector3.up * 2f; // Смещение №2 для создания кривой Безье
-
             Vector3 position = Bezier.GetPoint(a, b, c, d, t);
             transform.position = position; // Новое положение лута на пути к сборщику
             yield return null;

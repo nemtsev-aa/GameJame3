@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Collector : MonoBehaviour
 {
+    public Camera _camera;
+
     [Tooltip("Запись - позитив")]
     public Transform PositiveText;
     [Tooltip("Запись - негатив")]
@@ -49,7 +51,6 @@ public class Collector : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<EnemyHealth>() is EnemyHealth enemyHealth)
         {
-            Debug.Log("EnemyHealth: " + collision.gameObject.name);
             enemyHealth.TakeDamage(1000);
         }
     }

@@ -20,11 +20,13 @@ public class StartMenuState : GameState
     {
         base.Enter();
         _startMenuObject.SetActive(true);
+        Cursor.visible = false;
     }
 
     public override void Exit()
     {
         base.Exit();
         _startMenuObject.SetActive(false);
+        Cursor.visible = true;
     }
 }
