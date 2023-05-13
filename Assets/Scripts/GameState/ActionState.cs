@@ -15,7 +15,6 @@ public class ActionState : GameState
     {
         base.EnterFirstTime();
         _enemyManager.StartNewWave(0);
-        _experienceManager.UpLevel();
     }
 
     public override void Init(GameStateManager gameStateManager)

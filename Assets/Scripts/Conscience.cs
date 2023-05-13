@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Conscience : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void ShowParticle(ParticleSystem emotionEffect)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Создаём эффект смери
+        ParticleSystem dieParticle = Instantiate(emotionEffect, transform.position - Vector3.down * 1.5f, transform.rotation);
+        Destroy(dieParticle, 0.5f);
     }
 }

@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class Collector : MonoBehaviour
 {
+    [Tooltip("Запись - позитив")]
+    public Transform PositiveText;
+    [Tooltip("Запись - негатив")]
+    public Transform NefativeText;
+
     [Tooltip("Дистанция сбора")]
     [SerializeField] private float _distanceToCollect = 2f;
     [Tooltip("Физический слой для обработки сбора")]
@@ -14,13 +19,41 @@ public class Collector : MonoBehaviour
 
     private void FixedUpdate()
     {
+        EmotionCollect();
+    }
+
+    private void EmotionCollect()
+    {
         // Массив коллайдеров с которыми взаимодействует сборщик
-        Collider[] colliders = Physics.OverlapSphere(transform.position, _distanceToCollect, _layerMask, QueryTriggerInteraction.Ignore);  
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _distanceToCollect, _layerMask, QueryTriggerInteraction.Ignore);
         for (int i = 0; i < colliders.Length; i++)
         {
-            if (colliders[i].GetComponent<Loot>() is Loot loot) loot.Collect(this); // Если объект взаимодействия - лут, активируем процедуру сборки
+            if (colliders[i].GetComponent<ExperienceLoot>() is ExperienceLoot loot)
+            {
+                if (loot.EmotionType == EmotionType.Positive)
+                {
+                    _experienceManager.AddPositiveEmotion(loot.ExperienceValue);
+                    loot.Collect(this, PositiveText); // Если объект взаимодействия - лут, активируем процедуру сборки
+                }  
+                else
+                {
+                    _experienceManager.AddNegativeEmotion(loot.ExperienceValue);
+                    loot.Collect(this, NefativeText); // Если объект взаимодействия - лут, активируем процедуру сборки
+                }
+                
+            }   
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<EnemyHealth>() is EnemyHealth enemyHealth)
+        {
+            Debug.Log("EnemyHealth: " + collision.gameObject.name);
+            enemyHealth.TakeDamage(1000);
+        }
+    }
+
 
     public void TakeEmotion(EmotionType emotionType, float value)
     {

@@ -9,14 +9,14 @@ public enum EmotionType
 public class ExperienceLoot : Loot
 {
     [Tooltip("Количество опыта")]
-    [SerializeField] private int _experienceValue;
+    public float ExperienceValue;
     [Tooltip("Тип эмоции")]
-    [SerializeField] private EmotionType _emotionType;
+    public EmotionType EmotionType;
     
     public override void Take(Collector collector)
     {
         base.Take(collector);
-        collector.TakeEmotion(_emotionType, _experienceValue);
+        collector.TakeEmotion(EmotionType, ExperienceValue);
     }
 }
   

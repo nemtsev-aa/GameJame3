@@ -9,8 +9,10 @@ public class Loot : MonoBehaviour
     [Tooltip("Время полёта к сборщику")]
     [SerializeField] private float _timeToCollector;
 
-    public void Collect(Collector collector)
+    private Transform _textPosition;
+    public void Collect(Collector collector, Transform textPosition)
     {
+        _textPosition = textPosition;
         _collider.enabled = false; // Отключаем коллайдер лута, чтобы обеспечить одноразовый сбор
         StartCoroutine(MoveToCollector(collector)); // Визуализируем сбор
     }
@@ -23,7 +25,7 @@ public class Loot : MonoBehaviour
 
         for (float t = 0; t < 1f; t+=Time.deltaTime / _timeToCollector)
         {
-            Vector3 d = collector.transform.position; // Текущее положение сборщика
+            Vector3 d = _textPosition.position; // Текущее положение сборщика
             Vector3 c = d + Vector3.up * 2f; // Смещение №2 для создания кривой Безье
 
             Vector3 position = Bezier.GetPoint(a, b, c, d, t);

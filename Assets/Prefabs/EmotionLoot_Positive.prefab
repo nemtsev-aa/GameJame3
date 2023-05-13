@@ -142,7 +142,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.53103244
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3708996054882680241
 MonoBehaviour:
@@ -157,9 +157,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 3708996054882680254}
-  _timeToCollector: 0.3
-  _experienceValue: 1
-  _emotionType: 1
+  _timeToCollector: 1
+  ExperienceValue: 1
+  EmotionType: 1
 --- !u!1 &3708996055001628101
 GameObject:
   m_ObjectHideFlags: 0
