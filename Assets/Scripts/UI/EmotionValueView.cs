@@ -15,13 +15,20 @@ public class EmotionValueView : MonoBehaviour
     public void PositiveValueShow(float value)
     {
         _positiveText.text = value.ToString("0");
-        _positiveImage.fillAmount = value / 100;
+        if (_positiveImage)
+        {
+            _positiveImage.fillAmount = value / 100;
+        }
+       
     }
 
     public void NegativeValueShow(float value)
     {
         _negativeText.text = value.ToString("0");
-        _negativeImage.fillAmount = value / 100;
+        if (_negativeImage)
+        {
+            _negativeImage.fillAmount = value / 100;
+        } 
     }
 
     public void ResetValue()

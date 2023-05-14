@@ -26,6 +26,7 @@ public class EnemyMove : MonoBehaviour
         {
             EnemyAnimal enemyAnimal = gameObject.GetComponent<EnemyAnimal>();
             _enemyManager.RemoveEnemy(enemyAnimal);
+            Destroy(enemyAnimal.gameObject);
         }
 
         Quaternion targetRotation = Quaternion.LookRotation(toTarget, Vector3.up); // Целевой угол поворота

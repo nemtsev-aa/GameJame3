@@ -31,18 +31,18 @@ public class PlayerArmory : MonoBehaviour
         }
         else if (Input.GetAxis("Mouse ScrollWheel") >= 0.1f)
         {
-            if (CurrentGunIndex == Guns.Length - 1)
-                CurrentGunIndex = 0;
-            else
-                CurrentGunIndex++;
-            //GunsIcon[CurrentGunIndex].isOn = true;
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
-        {
             if (CurrentGunIndex == 0)
                 CurrentGunIndex = Guns.Length - 1;
             else
                 CurrentGunIndex--;
+            //GunsIcon[CurrentGunIndex].isOn = true;
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        {
+            if (CurrentGunIndex == Guns.Length - 1)
+                CurrentGunIndex = 0;
+            else
+                CurrentGunIndex++;
             //GunsIcon[CurrentGunIndex].isOn = true;
         }
 

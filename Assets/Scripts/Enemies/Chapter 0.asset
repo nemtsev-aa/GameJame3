@@ -15,29 +15,15 @@ MonoBehaviour:
   EnemyWavesArray:
   - Enemy: {fileID: 3903700099023091353, guid: e70bef465802e154d980c5ec53f2a2b6, type: 3}
     NumberPerSecond:
-    - 0.5
-    - 0.6
     - 0.7
-    - 0.8
-    - 1
-  - Enemy: {fileID: 2308179241615794212, guid: b6e89b063dc54ce48bccdadc8b9b0a11, type: 3}
+    - 0.3
+    - 0.35
+    - 0.4
+    - 0.45
+  - Enemy: {fileID: 3903700099023091353, guid: d0dca4ed1cfb8f4458c784ed9da3ad37, type: 3}
     NumberPerSecond:
-    - 0.25
-    - 0.6
     - 0.7
-    - 0.8
-    - 1
-  - Enemy: {fileID: 6538206532071773936, guid: ad71dce17581fdf4680771576f413ba1, type: 3}
-    NumberPerSecond:
-    - 0.25
-    - 0.6
-    - 0.7
-    - 0.8
-    - 1
-  - Enemy: {fileID: 6538206532071773936, guid: 13513b5aa292f584987edbb81213eaf3, type: 3}
-    NumberPerSecond:
-    - 0.5
-    - 0.6
-    - 0.7
-    - 0.8
-    - 1
+    - 0.3
+    - 0.35
+    - 0.4
+    - 0.45

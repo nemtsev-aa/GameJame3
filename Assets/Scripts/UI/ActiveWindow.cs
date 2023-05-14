@@ -5,6 +5,7 @@ public class ActiveWindow : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
+
     }
 
     public void Hide()

@@ -28,19 +28,6 @@ public class Enemy : MonoBehaviour
         _enemyMove.enabled = true;
     }
 
-    //private void Update()
-    //{
-    //    if (_playerHealth)
-    //    {
-    //        _attackTimer += Time.deltaTime;
-    //        if (_attackTimer > _attackPeriod)
-    //        {
-    //            _playerHealth.TakeDamage(_dps * _attackPeriod);
-    //            _attackTimer = 0;
-    //        }    
-    //    }
-    //}
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerHealth>() is PlayerHealth playerHealth)

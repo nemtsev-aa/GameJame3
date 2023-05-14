@@ -11,6 +11,7 @@ public enum WeaponsType
 
 public class PlayerRay : MonoBehaviour
 {
+    public EnemyManager enemyManager;
     [Tooltip("Арсенал")]
     [SerializeField] private PlayerArmory _playerArmory;
     [Tooltip("Камера игрока")]
@@ -66,12 +67,22 @@ public class PlayerRay : MonoBehaviour
         Debug.Log(armor.name);
         
         Rigidbody rigidbody = hit.rigidbody; // Противник
+        rigidbody.AddForce(-rigidbody.velocity * _force, ForceMode.Impulse);
+
+        if (rigidbody.GetComponent<EnemyAnimal>()._experienceLoot.GetComponent<ExperienceLoot>() is ExperienceLoot loot)
+        {
+            if (loot.EmotionType == EmotionType.Negative)
+                PositiveCounter.Instance.AddPositiveEmotion(loot.ExperienceValue);
+            else
+                NegativeCounter.Instance.AddNegativeEmotion(loot.ExperienceValue);
+        }
+
+        //enemyManager.RemoveEnemy(rigidbody.GetComponent<EnemyAnimal>());
+        //Destroy(rigidbody, 1f);
 
         //Vector3 toTarget = armor.transform.position - rigidbody.velocity; //Угол между целью и рукой
         //Quaternion targetRotation = Quaternion.LookRotation(toTarget, Vector3.up); // Целевой угол поворота
-        //armor.transform.rotation = Quaternion.Lerp(armor.transform.rotation, targetRotation, 5f); // Поворачиваем руку в сторону удара
-
-        rigidbody.AddForce(-rigidbody.velocity * _force, ForceMode.Impulse);
+        //armor.transform.rotation = Quaternion.Lerp(armor.transform.rotation, targetRotation, 5f); // Поворачиваем руку в сторону удара 
     }
 
 

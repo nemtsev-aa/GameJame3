@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameStateManager : MonoBehaviour
 {
+    public static GameStateManager Instance;
+
     [Tooltip("Состояние - Основное меню")]
     [SerializeField] private GameState _startMenuState;
     [Tooltip("Состояние - Активное состояние игры")]
@@ -17,8 +19,14 @@ public class GameStateManager : MonoBehaviour
 
     private GameState _currentGameState; // Текущее игровое состояние
     
+
     public void Init()
     {
+        if (Instance == null)
+            Instance = this;
+        else if (Instance == this)
+            Destroy(gameObject);
+
         _startMenuState?.Init(this);
         _actionState?.Init(this);
         _pauseState?.Init(this);
