@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chapter 0
   m_EditorClassIdentifier: 
   EnemyWavesArray:
-  - Enemy: {fileID: 2308179241615794212, guid: 7c5e1ecf218de0c488e2c85e4b4a7adf, type: 3}
+  - Enemy: {fileID: 3903700099023091353, guid: e70bef465802e154d980c5ec53f2a2b6, type: 3}
     NumberPerSecond:
     - 0.5
     - 0.6

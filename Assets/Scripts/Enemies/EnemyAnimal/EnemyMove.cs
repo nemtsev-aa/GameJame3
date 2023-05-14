@@ -11,8 +11,10 @@ public class EnemyMove : MonoBehaviour
 
     private Transform _targetTransform; // Трансформ цели
     private EnemyManager _enemyManager; // Менеджер эмоций
+    
     public void Setup(Transform playerTransform, EnemyManager enemyManager)
     {
+
         _targetTransform = playerTransform;
         _enemyManager = enemyManager;
     }
@@ -25,6 +27,7 @@ public class EnemyMove : MonoBehaviour
             EnemyAnimal enemyAnimal = gameObject.GetComponent<EnemyAnimal>();
             _enemyManager.RemoveEnemy(enemyAnimal);
         }
+
         Quaternion targetRotation = Quaternion.LookRotation(toTarget, Vector3.up); // Целевой угол поворота
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * _rotationLerpRate); // Поворот врага к цели
     }

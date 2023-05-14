@@ -40,11 +40,14 @@ public class EnemyManager : MonoBehaviour
     {
         Vector2 randomPoint = Random.insideUnitCircle.normalized; // Случайная точка на единичной окружности
         Vector3 position = new Vector3(randomPoint.x, 0f, randomPoint.y) * _creationRadius + _playerTransform.position; // Положение врага при создании
-        EnemyAnimal newEnemy = Instantiate(enemy,position, Quaternion.identity); // Новый враг в расчитанном положении
+        
+        EnemyAnimal newEnemy = Instantiate(enemy, position, Quaternion.identity); // Новый враг в расчитанном положении
+        newEnemy.transform.LookAt(_playerTransform);
         newEnemy.Init(_playerTransform, this); // Передаём врагу сведения о положении игрока
         newEnemy.EnemyKilled += RemoveEnemy;
         _enemyList.Add(newEnemy); // Добавляем врага в список
     }
+
 
     public void RemoveEnemy(EnemyAnimal enemy)
     {
@@ -68,6 +71,7 @@ public class EnemyManager : MonoBehaviour
 #if UNITY_EDITOR
         Handles.color = Color.red;
         Handles.DrawWireDisc(_playerTransform.position, Vector3.up, _creationRadius);
+        Gizmos.DrawLine(transform.position, Vector3.zero - transform.position);
 #endif
     }
 

@@ -14,11 +14,18 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         _enemyMove = gameObject.GetComponent<EnemyMove>();
+        _enemyMove.enabled = false;
     }
     
     public void Init(Transform playerTransform, EnemyManager enemyManager)
     {
         _enemyMove.Setup(playerTransform, enemyManager);
+        Invoke(nameof(MoveStart), 2f);
+    }
+
+    private void MoveStart()
+    {
+        _enemyMove.enabled = true;
     }
 
     //private void Update()

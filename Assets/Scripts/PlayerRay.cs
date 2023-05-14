@@ -4,9 +4,9 @@ using UnityEngine;
 
 public enum WeaponsType
 {
-    Head,
-    Bomb,
-    Strike
+    Strike,
+    Mover,
+    Bomb
 }
 
 public class PlayerRay : MonoBehaviour
@@ -18,61 +18,109 @@ public class PlayerRay : MonoBehaviour
     [Tooltip("Сила отталкивания")]
     [SerializeField] private float _force;
 
+    public Animator _animatorMover;
+    public Animator _animatorStriker;
+
     private Transform curObj;
     private float mass;
     private WeaponsType _currentWeaponsType;
 
     void LateUpdate()
     {
-        RaycastHit hit;
         Ray ray = _playerCamera.ScreenPointToRay(Input.mousePosition); // Луч из камеры игрока в позицию курсора мыши на экране
         Debug.DrawRay(ray.origin, ray.direction * 60f, Color.red); // Визуализация луча в сцене
 
-        if (Input.GetMouseButtonDown(0) && _playerArmory.CurrentGunIndex == 0) // Удерживать левую кнопку мыши
+        if (Input.GetMouseButton(0) && (_playerArmory.CurrentGunIndex == 1 || _playerArmory.CurrentGunIndex == 2)) // Удерживать левую кнопку мыши
         {
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.rigidbody)
-                {
-                    Rigidbody rigidbody = hit.rigidbody;
-                    rigidbody.AddForce(-rigidbody.velocity * _force, ForceMode.Impulse);
-                }
-            }
+            MouseDrag(ray);
         }
-        else if (Input.GetMouseButton(0) && _playerArmory.CurrentGunIndex == 1) // Удерживать левую кнопку мыши
+        else if (Input.GetMouseButtonDown(0) && _playerArmory.CurrentGunIndex == 0) // Нажата левая кнопка мыши
         {
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.rigidbody && !curObj)
-                {
-                    curObj = hit.transform;
-                    mass = curObj.GetComponent<Rigidbody>().mass; // запоминаем массу объекта
-                    curObj.GetComponent<Rigidbody>().mass = 0.0001f; // убираем массу, чтобы не сбивать другие объекты
-                    curObj.GetComponent<Rigidbody>().useGravity = false; // убираем гравитацию
-                    curObj.GetComponent<Rigidbody>().freezeRotation = true; // заморозка вращения
-                    curObj.position += new Vector3(0, 0.5f, 0); // немного приподымаем выбранный объект
-                }
-            }
+            MouseDown(ray);
+        }
+        else
+        {
+            MouseUp();
+        }
 
-            if (curObj)
+    }
+    private void MouseDown(Ray ray)
+    {
+        Debug.Log("OnMouseDown");
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.rigidbody)
             {
-                Vector3 mousePosition = _playerCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _playerCamera.transform.position.y));
-                curObj.GetComponent<Rigidbody>().MovePosition(new Vector3(mousePosition.x, curObj.position.y + Input.GetAxis("Mouse ScrollWheel") * 5f, mousePosition.z));
+                _animatorStriker.SetTrigger("Strike");
+                StartCoroutine(Strike(hit));
             }
         }
-        else if (Input.GetMouseButtonDown(1) && _playerArmory.CurrentGunIndex == 2) // Нажата правая кнопка мыши
+    }
+
+    private IEnumerator Strike(RaycastHit hit)
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        GameObject armor = _playerArmory.Guns[_playerArmory.CurrentGunIndex].gameObject; // Рука
+        Debug.Log(armor.name);
+        
+        Rigidbody rigidbody = hit.rigidbody; // Противник
+
+        //Vector3 toTarget = armor.transform.position - rigidbody.velocity; //Угол между целью и рукой
+        //Quaternion targetRotation = Quaternion.LookRotation(toTarget, Vector3.up); // Целевой угол поворота
+        //armor.transform.rotation = Quaternion.Lerp(armor.transform.rotation, targetRotation, 5f); // Поворачиваем руку в сторону удара
+
+        rigidbody.AddForce(-rigidbody.velocity * _force, ForceMode.Impulse);
+    }
+
+
+    private void MouseDrag(Ray ray)
+    {
+        Debug.Log("OnMouseDrag");
+
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
         {
-            if (Physics.Raycast(ray, out hit))
+            if (hit.rigidbody && !curObj)
             {
-                if (hit.rigidbody.transform.GetComponent<Explosion>() is Explosion explosion)
-                {
-                    Debug.Log(explosion.gameObject.name);
-                    explosion.Explode();
-                }
+                //Animator animator = _playerArmory.Guns[1].transform.GetComponent<Mover>().Animator;
+                _animatorMover.SetTrigger("Drag");
+                
+                curObj = hit.transform;
+                curObj.position += new Vector3(0, 0.3f, 0); // немного приподнимаем выбранный объект
+
+                Rigidbody rigidbody = curObj.GetComponent<Rigidbody>();
+                mass = rigidbody.mass; // запоминаем массу объекта
+                rigidbody.mass = 0.0001f; // убираем массу, чтобы не сбивать другие объекты
+                rigidbody.useGravity = false; // убираем гравитацию
+                rigidbody.freezeRotation = true; // заморозка вращении 
             }
         }
-        else if (curObj)
+
+        if (curObj)
         {
+            Debug.Log("Cargo: True");
+            _animatorMover.SetBool("Cargo", true);
+            Vector3 mousePosition = _playerCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _playerCamera.transform.position.y));
+            curObj.GetComponent<Rigidbody>().MovePosition(new Vector3(mousePosition.x, curObj.position.y + Input.GetAxis("Mouse ScrollWheel") * 5f, mousePosition.z));
+        }
+        else
+        {
+            Debug.Log("Cargo: False");
+            _animatorMover.SetBool("Cargo", false);
+        }
+    }
+
+    private void MouseUp()
+    {
+        Debug.Log("OnMouseUp");
+        Debug.Log("Cargo: False");
+        _animatorMover.SetBool("Cargo", false);
+        if (curObj)
+        {
+            _animatorMover.SetTrigger("Drop");
+
             if (curObj.GetComponent<Rigidbody>())
             {
                 curObj.GetComponent<Rigidbody>().freezeRotation = false;
@@ -83,5 +131,6 @@ public class PlayerRay : MonoBehaviour
         }
     }
 }
+
 
 

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    
     public float Radius;
     public float Force;
     public GameObject AffectArea;
     public ParticleSystem ParticleSystem;
+    public Animator Animator;
 
     public void Explode()
     {
@@ -17,11 +17,12 @@ public class Explosion : MonoBehaviour
 
     private IEnumerator AffectProcess()
     {
-        AffectArea.SetActive(true);
-        yield return new WaitForSeconds(0.2f);
-        
-        Collider[] overlappedColliders = Physics.OverlapSphere(transform.position, Radius);
+        //AffectArea.SetActive(true);
 
+        Animator.SetBool("Affect", true);
+        yield return new WaitForSeconds(1f);
+
+        Collider[] overlappedColliders = Physics.OverlapSphere(transform.position, Radius);
         for (int i = 0; i < overlappedColliders.Length; i++)
         {
             Rigidbody rigidbody = overlappedColliders[i].attachedRigidbody;
@@ -30,9 +31,9 @@ public class Explosion : MonoBehaviour
                 rigidbody.AddExplosionForce(Force, transform.position, Radius);
             }
         }
-
-        //Destroy(gameObject);
+                
         Instantiate(ParticleSystem, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     private void OnValidate()
